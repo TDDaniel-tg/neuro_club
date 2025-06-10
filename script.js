@@ -129,6 +129,11 @@ function calculateSavings() {
         return;
     }
     
+    // Hide time usage ideas block if it was shown from previous calculation
+    const timeUsageIdeas = document.getElementById('time-usage-ideas');
+    timeUsageIdeas.classList.remove('visible');
+    timeUsageIdeas.style.display = 'none';
+    
     // Calculate total hours saved per day
     let totalHoursSaved = 0;
     selectedTasks.forEach(task => {
@@ -151,8 +156,37 @@ function calculateSavings() {
     document.getElementById('roi-days').textContent = roiDays;
     document.getElementById('daily-savings').textContent = formatNumber(dailySavings);
     
+    // Update hours in time usage ideas block
+    document.getElementById('hours-per-month').textContent = Math.floor(monthlyHoursSaved);
+    
     // Show results with animation
     calculatorResults.classList.add('visible');
+    
+    // Show time usage ideas block with delay
+    setTimeout(() => {
+        timeUsageIdeas.style.display = 'block';
+        // Force reflow to ensure the display change is applied before animation
+        timeUsageIdeas.offsetHeight;
+        
+        setTimeout(() => {
+            timeUsageIdeas.classList.add('visible');
+        }, 50);
+    }, 500);
+    
+    // Animate value cards one by one
+    const valueCards = document.querySelectorAll('.value-card');
+    valueCards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        }, 700 + (index * 100));
+    });
     
     // Scroll to results
     setTimeout(() => {
@@ -211,6 +245,7 @@ function initSocialProof() {
         { name: 'Елена из Казани', action: 'увеличила доход на 150% за месяц' },
         { name: 'Михаил из Екатеринбурга', action: 'автоматизировал продажи с ChatGPT' },
         { name: 'Ольга из Новосибирска', action: 'создала 50 дизайнов за день' }
+        
     ];
     
     let currentIndex = 0;
