@@ -240,11 +240,11 @@ function initCountdown() {
 // Social Proof Notifications
 function initSocialProof() {
     const names = [
-        { name: 'Анна из Москвы', action: 'только что присоединилась к НейроКлубу' },
-        { name: 'Сергей из Санкт-Петербурга', action: 'начал изучать маркетинг с ИИ' },
-        { name: 'Елена из Казани', action: 'увеличила доход на 150% за месяц' },
-        { name: 'Михаил из Екатеринбурга', action: 'автоматизировал продажи с ChatGPT' },
-        { name: 'Ольга из Новосибирска', action: 'создала 50 дизайнов за день' }
+        { name: 'Анна из Москвы', action: 'только что присоединилась к НейроКлубу', avatar: 'image/user7.jpg' },
+        { name: 'Сергей из Санкт-Петербурга', action: 'начал изучать маркетинг с ИИ', avatar: 'image/user5.jpg' },
+        { name: 'Елена из Казани', action: 'увеличила доход на 150% за месяц', avatar: 'image/user6.jpg' },
+        { name: 'Михаил из Екатеринбурга', action: 'автоматизировал продажи с ChatGPT', avatar: 'image/user4.jpg' },
+        { name: 'Мария из Новосибирска', action: 'подняла стоимость услуг с 30 до 120 тыс. рублей', avatar: 'image/user8.jpg' }
         
     ];
     
@@ -253,11 +253,17 @@ function initSocialProof() {
     function showNotification() {
         const notification = names[currentIndex];
         const textElement = socialProof.querySelector('.social-proof__text');
+        const avatarElement = socialProof.querySelector('.social-proof__avatar');
         
         textElement.innerHTML = `
             <strong>${notification.name}</strong>
             <span>${notification.action}</span>
         `;
+        
+        if (avatarElement) {
+            avatarElement.src = notification.avatar;
+            avatarElement.alt = notification.name.split(' ')[0];
+        }
         
         socialProof.classList.add('show');
         
@@ -391,11 +397,29 @@ function initScrollAnimations() {
 function initMobileMenu() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const nav = document.querySelector('.nav');
+    const navLinks = document.querySelectorAll('.nav__link');
     
     if (mobileMenuToggle) {
+        // Toggle menu on burger click
         mobileMenuToggle.addEventListener('click', () => {
             nav.classList.toggle('mobile-active');
             mobileMenuToggle.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('mobile-active');
+                mobileMenuToggle.classList.remove('active');
+            });
+        });
+        
+        // Close menu when clicking on overlay
+        nav.addEventListener('click', (e) => {
+            if (e.target === nav) {
+                nav.classList.remove('mobile-active');
+                mobileMenuToggle.classList.remove('active');
+            }
         });
     }
 }
