@@ -2113,4 +2113,104 @@ section {
     .progress-bar {
         display: none;
     }
+}
+
+/* =================================
+   TELEGRAM NOTIFICATIONS STYLES
+   ================================= */
+
+.success-notification,
+.error-notification {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 10000;
+    max-width: 400px;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.success-notification {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: #10B981;
+    color: #10B981;
+}
+
+.error-notification {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: #EF4444;
+    color: #EF4444;
+}
+
+.success-notification.show,
+.error-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.notification-content svg {
+    flex-shrink: 0;
+}
+
+/* Form Highlight */
+.cta-form.highlight {
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.3) !important;
+    animation: pulseForm 1s ease-in-out;
+}
+
+@keyframes pulseForm {
+    0%, 100% {
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.3) !important;
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(0, 212, 255, 0.2) !important;
+    }
+}
+
+/* Calculator Result Animation */
+.result-animation {
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating CTA Show/Hide Enhancement */
+.floating-cta.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
+/* Mobile notifications */
+@media (max-width: 768px) {
+    .success-notification,
+    .error-notification {
+        top: 1rem;
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+        font-size: 0.9rem;
+    }
 } 
